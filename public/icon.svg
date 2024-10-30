@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Zebra silhouette - revised to be more anatomically accurate -->
+  <path d="
+    M130 160
+    L160 160
+    L155 140
+    L160 130
+    L150 120
+    L155 110
+    L150 90
+    L140 85
+    L135 75
+    L120 70
+    L110 60
+    L100 50
+    L90 45
+    L80 47
+    L70 50
+    L60 60
+    L50 70
+    L45 85
+    L40 100
+    L42 115
+    L45 125
+    L50 135
+    L60 145
+    L70 150
+    L85 155
+    L100 160
+    Z"
+    fill="black"/>
+
+  <!-- Mane -->
+  <path d="M90 45 L85 35 L87 30 L90 25 L95 30 L100 35 L105 32 L110 35 L108 40 L105 45"
+        fill="black"/>
+
+  <!-- Tail -->
+  <path d="M155 140 L165 135 L170 125 L168 120 L165 118 L160 130"
+        fill="black"/>
+
+  <!-- Plus sign -->
+  <path d="M65 80 L75 80 L75 70 L85 70 L85 80 L95 80 L95 90 L85 90 L85 100 L75 100 L75 90 L65 90 Z"
+        fill="white"/>
+
+  <!-- Minus sign -->
+  <rect x="100" y="80" width="30" height="10" fill="white"/>
+
+  <!-- Multiplication sign (×) -->
+  <path d="M70 110 L80 120 L70 130 L75 135 L85 125 L95 135 L100 130 L90 120 L100 110 L95 105 L85 115 L75 105 Z"
+        fill="white"/>
+
+  <!-- Division sign (÷) -->
+  <circle cx="115" cy="110" r="4" fill="white"/>
+  <rect x="100" y="120" width="30" height="8" fill="white"/>
+  <circle cx="115" cy="135" r="4" fill="white"/>
+</svg>
