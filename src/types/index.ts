@@ -9,8 +9,8 @@ export interface Problem {
 }
 
 export interface GameState {
-  score: number
-  currentLevel: number
-  problemsSolved: number
-  timeRemaining: number
+  score: number;
+  currentLevel: number;
+  problemsSolved: number;
+  timeRemaining: number;
 }

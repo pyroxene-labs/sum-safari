@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Problem } from './types'
-import { generateProblem } from './utils/mathGen'
-import TestPalette from './components/TestPalette.vue'
+import { ref } from "vue";
+import { Problem } from "./types";
+import { generateProblem } from "./utils/mathGen";
+import TestPalette from "./components/TestPalette.vue";
 
-const score = ref(0)
-const answer = ref('')
-const showCelebration = ref(false)
+const score = ref(0);
+const answer = ref("");
+const showCelebration = ref(false);
 
 // Safari animals for different problem types
-const safariAnimals = ['🦁', '🦒', '🦊', '🦘', '🦛', '🐘', '🦏', '🦬', '🦓']
+const safariAnimals = ["🦁", "🦒", "🦊", "🦘", "🦛", "🐘", "🦏", "🦬", "🦓"];
 
 // Sample problem - in real app would come from mathGen utility
 // const problem: Problem = {
@@ -21,23 +21,21 @@ const safariAnimals = ['🦁', '🦒', '🦊', '🦘', '🦛', '🐘', '🦏', '
 //   difficulty: 'easy'
 // }
 
-const problem = generateProblem('medium')
+const problem = generateProblem("medium");
 
 const checkAnswer = () => {
-  showCelebration.value = true
+  showCelebration.value = true;
   setTimeout(() => {
-    showCelebration.value = false
-  }, 2000)
-}
+    showCelebration.value = false;
+  }, 2000);
+};
 </script>
 
 <template>
   <div class="min-h-screen bg-gradient-to-b from-yellow-50 to-orange-50 p-4 relative overflow-hidden">
     <!-- Safari-themed background elements -->
     <div class="absolute inset-0 pointer-events-none opacity-10">
-      <div class="text-8xl select-none">
-        🌴 🌳 🌿 🌴 🌳 🌿 🌴 🌳 🌿
-      </div>
+      <div class="text-8xl select-none">🌴 🌳 🌿 🌴 🌳 🌿 🌴 🌳 🌿</div>
     </div>
 
     <!-- Top Bar - Safari themed -->
@@ -81,7 +79,7 @@ const checkAnswer = () => {
               v-model="answer"
               class="w-full text-3xl md:text-4xl text-center p-4 border-2 border-orange-300 rounded-lg focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-colors bg-white/90"
               placeholder="?"
-            >
+            />
           </div>
         </div>
       </div>
@@ -141,17 +139,20 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 input[type="number"] {
+  appearance: textfield;
   -moz-appearance: textfield;
 }
 
 @keyframes bounce {
-  0%, 100% {
+  0%,
+  § 100% {
     transform: translateY(-25%);
-    animation-timing-function: cubic-bezier(0.8,0,1,1);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
   }
+
   50% {
     transform: none;
-    animation-timing-function: cubic-bezier(0,0,0.2,1);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
   }
 }
 
