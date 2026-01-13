@@ -52,7 +52,7 @@ useKeyboardShortcuts([
 </script>
 
 <template>
-  <div class="settings-view">
+  <main class="settings-view">
     <header class="settings-header">
       <h1 class="app-title">
         Sum<span class="title-highlight">Safari</span>
@@ -62,13 +62,13 @@ useKeyboardShortcuts([
     </header>
 
     <div class="settings-card">
-      <section class="settings-section">
-        <h2 class="section-title">
-          <span class="section-emoji">🎯</span>
+      <section class="settings-section" aria-labelledby="difficulty-title">
+        <h2 id="difficulty-title" class="section-title">
+          <span class="section-emoji" aria-hidden="true">🎯</span>
           Difficulty
         </h2>
         <p class="section-hint">Choose how challenging the problems will be</p>
-        <div class="difficulty-grid">
+        <div class="difficulty-grid" role="radiogroup" aria-labelledby="difficulty-title">
           <button
             v-for="option in difficultyOptions"
             :key="option.value"
@@ -78,21 +78,24 @@ useKeyboardShortcuts([
               { active: settingsStore.difficulty.value === option.value },
             ]"
             @click="settingsStore.setDifficulty(option.value)"
+            role="radio"
+            :aria-checked="settingsStore.difficulty.value === option.value"
+            :aria-label="option.label + ' difficulty, multiplier ' + option.multiplier + 'x'"
           >
-            <span class="check-indicator">✓</span>
+            <span class="check-indicator" aria-hidden="true">✓</span>
             <span class="difficulty-label">{{ option.label }}</span>
             <span class="difficulty-multiplier">×{{ option.multiplier }} score</span>
           </button>
         </div>
       </section>
 
-      <section class="settings-section">
-        <h2 class="section-title">
-          <span class="section-emoji">🔢</span>
+      <section class="settings-section" aria-labelledby="ops-title">
+        <h2 id="ops-title" class="section-title">
+          <span class="section-emoji" aria-hidden="true">🔢</span>
           Operations
         </h2>
         <p class="section-hint">Select which operations to practice (pick at least one)</p>
-        <div class="operators-grid">
+        <div class="operators-grid" role="group" aria-labelledby="ops-title">
           <button
             v-for="op in operatorOptions"
             :key="op.value"
@@ -102,21 +105,23 @@ useKeyboardShortcuts([
               { active: isOperatorSelected(op.value) },
             ]"
             @click="settingsStore.toggleOperator(op.value)"
+            role="checkbox"
+            :aria-checked="isOperatorSelected(op.value)"
           >
-            <span class="check-indicator">✓</span>
-            <span class="operator-emoji">{{ op.emoji }}</span>
+            <span class="check-indicator" aria-hidden="true">✓</span>
+            <span class="operator-emoji" aria-hidden="true">{{ op.emoji }}</span>
             <span class="operator-label">{{ op.label }}</span>
           </button>
         </div>
       </section>
 
-      <section class="settings-section">
-        <h2 class="section-title">
-          <span class="section-emoji">⏱️</span>
+      <section class="settings-section" aria-labelledby="timer-title">
+        <h2 id="timer-title" class="section-title">
+          <span class="section-emoji" aria-hidden="true">⏱️</span>
           Timer
         </h2>
         <p class="section-hint">How long should each practice session last?</p>
-        <div class="timer-grid">
+        <div class="timer-grid" role="radiogroup" aria-labelledby="timer-title">
           <button
             v-for="seconds in timerPresets"
             :key="seconds"
@@ -126,16 +131,18 @@ useKeyboardShortcuts([
               { active: settingsStore.timerDuration.value === seconds },
             ]"
             @click="settingsStore.setTimerDuration(seconds)"
+            role="radio"
+            :aria-checked="settingsStore.timerDuration.value === seconds"
           >
-            <span class="check-indicator">✓</span>
+            <span class="check-indicator" aria-hidden="true">✓</span>
             <span class="timer-label">{{ formatTimer(seconds) }}</span>
           </button>
         </div>
       </section>
     </div>
 
-    <button class="start-btn" @click="startGame">
-      <span class="start-emoji">🚀</span>
+    <button class="start-btn" @click="startGame" aria-label="Start Safari Game">
+      <span class="start-emoji" aria-hidden="true">🚀</span>
       <span class="start-text">
         <span class="start-main">Start Safari!</span>
         <span class="start-sub">Press Enter or click to begin</span>
@@ -147,7 +154,7 @@ useKeyboardShortcuts([
         🏆 +10 correct • ⏰ +2 bonus (&lt;2s) • 💡 -2 hint • ⏭️ -5 skip
       </p>
     </footer>
-  </div>
+  </main>
 </template>
 
 <style scoped>

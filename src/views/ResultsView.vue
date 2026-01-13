@@ -91,9 +91,9 @@ useKeyboardShortcuts([
 </script>
 
 <template>
-  <div class="results-view">
+  <main class="results-view">
     <header class="results-header">
-      <div class="trophy-emoji">🏆</div>
+      <div class="trophy-emoji" aria-hidden="true">🏆</div>
       <h1 class="results-title">Safari Complete!</h1>
       <p class="results-subtitle">Great job exploring math today!</p>
     </header>
@@ -109,7 +109,7 @@ useKeyboardShortcuts([
 
         <div class="breakdown-row">
           <span class="breakdown-label">
-            <span class="row-emoji">🎯</span>
+            <span class="row-emoji" aria-hidden="true">🎯</span>
             Problems Attempted
           </span>
           <span class="breakdown-value">{{ summary.problemsAttempted }}</span>
@@ -117,59 +117,59 @@ useKeyboardShortcuts([
 
         <div class="breakdown-row positive">
           <span class="breakdown-label">
-            <span class="row-emoji">✅</span>
+            <span class="row-emoji" aria-hidden="true">✅</span>
             Correct Answers
           </span>
           <span class="breakdown-value">
             {{ summary.correctCount }}
-            <span class="points">+{{ summary.basePoints }}</span>
+            <span class="points" aria-label="plus {{ summary.basePoints }} points">+{{ summary.basePoints }}</span>
           </span>
         </div>
 
         <div v-if="summary.skippedCount > 0" class="breakdown-row negative">
           <span class="breakdown-label">
-            <span class="row-emoji">⏭️</span>
+            <span class="row-emoji" aria-hidden="true">⏭️</span>
             Skipped
           </span>
           <span class="breakdown-value">
             {{ summary.skippedCount }}
-            <span class="points">-{{ summary.skippedCount * SCORING.SKIP_PENALTY }}</span>
+            <span class="points" aria-label="minus {{ summary.skippedCount * SCORING.SKIP_PENALTY }} points">-{{ summary.skippedCount * SCORING.SKIP_PENALTY }}</span>
           </span>
         </div>
 
         <div v-if="summary.timeBonusPoints > 0" class="breakdown-row positive">
           <span class="breakdown-label">
-            <span class="row-emoji">⚡</span>
+            <span class="row-emoji" aria-hidden="true">⚡</span>
             Time Bonus
           </span>
           <span class="breakdown-value">
-            <span class="points">+{{ summary.timeBonusPoints }}</span>
+            <span class="points" aria-label="plus {{ summary.timeBonusPoints }} points">+{{ summary.timeBonusPoints }}</span>
           </span>
         </div>
 
         <div v-if="summary.hintsUsed > 0" class="breakdown-row negative">
           <span class="breakdown-label">
-            <span class="row-emoji">💡</span>
+            <span class="row-emoji" aria-hidden="true">💡</span>
             Hints Used
           </span>
           <span class="breakdown-value">
             {{ summary.hintsUsed }}
-            <span class="points">-{{ summary.hintPenalty }}</span>
+            <span class="points" aria-label="minus {{ summary.hintPenalty }} points">-{{ summary.hintPenalty }}</span>
           </span>
         </div>
 
         <div v-if="summary.excessHintPenalty > 0" class="breakdown-row negative warning">
           <span class="breakdown-label">
-            <span class="row-emoji">⚠️</span>
+            <span class="row-emoji" aria-hidden="true">⚠️</span>
             Excess Hint Penalty
             <span class="hint-explanation">(&gt;2 hints/min)</span>
           </span>
           <span class="breakdown-value">
-            <span class="points">-{{ summary.excessHintPenalty }}</span>
+            <span class="points" aria-label="minus {{ summary.excessHintPenalty }} points">-{{ summary.excessHintPenalty }}</span>
           </span>
         </div>
 
-        <div class="breakdown-divider"></div>
+        <div class="breakdown-divider" role="separator"></div>
 
         <div class="breakdown-row subtotal">
           <span class="breakdown-label">Subtotal</span>
@@ -178,45 +178,47 @@ useKeyboardShortcuts([
 
         <div class="breakdown-row multiplier">
           <span class="breakdown-label">
-            <span class="row-emoji">🎚️</span>
+            <span class="row-emoji" aria-hidden="true">🎚️</span>
             Difficulty ({{ session?.settings.difficulty }})
           </span>
-          <span class="breakdown-value">×{{ summary.difficultyMultiplier }}</span>
+          <span class="breakdown-value" aria-label="multiplier {{ summary.difficultyMultiplier }} times">×{{ summary.difficultyMultiplier }}</span>
         </div>
       </div>
     </div>
 
     <div class="stats-grid" v-if="summary">
       <div class="stat-card" :class="`accuracy-${accuracyLevel}`">
-        <span class="stat-emoji">{{ accuracyEmoji }}</span>
+        <span class="stat-emoji" aria-hidden="true">{{ accuracyEmoji }}</span>
         <span class="stat-value">{{ accuracy }}%</span>
         <span class="stat-label">Accuracy</span>
       </div>
-      <div 
+      <button 
         class="stat-card animals-card" 
         :class="{ clickable: animalsCollected.length > 0 }"
         @click="openAnimalsModal"
+        :disabled="animalsCollected.length === 0"
+        :aria-label="'Animals Found: ' + summary.correctCount + (animalsCollected.length > 0 ? ', tap to view collection' : '')"
       >
-        <span class="stat-emoji">🦁</span>
+        <span class="stat-emoji" aria-hidden="true">🦁</span>
         <span class="stat-value">{{ summary.correctCount }}</span>
         <span class="stat-label">Animals Found</span>
-        <span v-if="animalsCollected.length > 0" class="tap-hint">Tap to view</span>
-      </div>
+        <span v-if="animalsCollected.length > 0" class="tap-hint" aria-hidden="true">Tap to view</span>
+      </button>
     </div>
 
     <!-- Animals Modal -->
     <Teleport to="body">
-      <div v-if="showAnimalsModal" class="modal-overlay" @click="closeAnimalsModal">
-        <div class="modal animals-modal" @click.stop>
-          <div class="modal-emoji">🎉</div>
-          <h3 class="modal-title">Your Safari Collection!</h3>
+      <div v-if="showAnimalsModal" class="modal-overlay" @click="closeAnimalsModal" role="presentation">
+        <div class="modal animals-modal" @click.stop role="dialog" aria-modal="true" aria-labelledby="collection-title">
+          <div class="modal-emoji" aria-hidden="true">🎉</div>
+          <h3 id="collection-title" class="modal-title">Your Safari Collection!</h3>
           <p class="modal-message">You discovered {{ animalsCollected.length }} animals</p>
-          <div class="animals-grid">
-            <span v-for="(animal, index) in animalsCollected" :key="index" class="animal-item">
+          <div class="animals-grid" role="list">
+            <span v-for="(animal, index) in animalsCollected" :key="index" class="animal-item" role="listitem">
               {{ animal }}
             </span>
           </div>
-          <button class="close-animals-btn" @click="closeAnimalsModal">
+          <button class="close-animals-btn" @click="closeAnimalsModal" aria-label="Close Modal">
             Close [Esc]
           </button>
         </div>
@@ -228,15 +230,16 @@ useKeyboardShortcuts([
       :class="{ disabled: !enterEnabled }"
       :disabled="!enterEnabled"
       @click="startNewGame"
+      :aria-label="!enterEnabled ? 'New Game, ready in ' + countdown + ' seconds' : 'Start New Safari Game'"
     >
-      <span class="btn-emoji">🚀</span>
+      <span class="btn-emoji" aria-hidden="true">🚀</span>
       <span class="btn-text">
         <span class="btn-main">New Safari!</span>
         <span class="btn-sub" v-if="enterEnabled">Press Enter or click to begin</span>
         <span class="btn-sub countdown" v-else>Ready in {{ countdown }}...</span>
       </span>
     </button>
-  </div>
+  </main>
 </template>
 
 <style scoped>

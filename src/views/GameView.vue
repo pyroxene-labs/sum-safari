@@ -127,15 +127,15 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="game-view">
+  <main class="game-view">
     <!-- Score Bar -->
     <div class="score-bar">
-      <div class="score-item">
-        <span class="score-emoji">🏆</span>
+      <div class="score-item" aria-label="Current Score">
+        <span class="score-emoji" aria-hidden="true">🏆</span>
         <span class="score-value">{{ gameStore.currentScore.value }}</span>
       </div>
-      <div class="score-item timer" :class="{ warning: gameStore.timeRemaining.value <= 30 }">
-        <span class="score-emoji">⏳</span>
+      <div class="score-item timer" :class="{ warning: gameStore.timeRemaining.value <= 30 }" aria-label="Time Remaining">
+        <span class="score-emoji" aria-hidden="true">⏳</span>
         <span class="score-value">{{ gameStore.formattedTime.value }}</span>
       </div>
     </div>
@@ -143,10 +143,10 @@ onMounted(() => {
     <!-- Problem Card -->
     <div class="problem-card" v-if="problem">
       <!-- Animal -->
-      <div class="problem-animal">{{ problem.animal }}</div>
+      <div class="problem-animal" aria-hidden="true">{{ problem.animal }}</div>
 
       <!-- Equation -->
-      <div class="problem-equation">
+      <div class="problem-equation" :aria-label="`${problem.operand1} ${problem.operator === '×' ? 'times' : problem.operator === '÷' ? 'divided by' : problem.operator} ${problem.operand2} equals what?`">
         {{ problem.operand1 }} {{ problem.operator }} {{ problem.operand2 }} = ?
       </div>
 
@@ -161,51 +161,52 @@ onMounted(() => {
           :class="{ correct: isShowingFeedback && wasCorrect, wrong: isShowingFeedback && !wasCorrect }"
           :disabled="isShowingFeedback"
           placeholder="?"
+          aria-label="Your Answer"
         />
       </div>
 
       <!-- Feedback Overlay -->
-      <div v-if="isShowingFeedback" class="feedback-overlay" :class="{ correct: wasCorrect, wrong: !wasCorrect }">
-        <div class="feedback-emoji">{{ wasCorrect ? "🎉" : "💪" }}</div>
+      <div v-if="isShowingFeedback" class="feedback-overlay" :class="{ correct: wasCorrect, wrong: !wasCorrect }" role="alert" aria-live="assertive">
+        <div class="feedback-emoji" aria-hidden="true">{{ wasCorrect ? "🎉" : "💪" }}</div>
         <div class="feedback-message">
           {{ wasCorrect ? "Great job!" : "Not quite!" }}
         </div>
         <div v-if="!wasCorrect" class="correct-answer">
           The answer was: <strong>{{ formatAnswer(problem.answer) }}</strong>
         </div>
-        <button class="continue-btn" @click="handleContinue">
+        <button class="continue-btn" @click="handleContinue" ref="continueBtn">
           Continue
-          <span class="shortcut-hint">[{{ getShortcutLabel(SHORTCUTS.CHECK.key) }}]</span>
+          <span class="shortcut-hint" aria-hidden="true">[{{ getShortcutLabel(SHORTCUTS.CHECK.key) }}]</span>
         </button>
       </div>
     </div>
 
     <!-- Control Buttons -->
     <div class="control-buttons">
-      <button class="control-btn new-btn" @click="handleNewClick" :disabled="isShowingFeedback">
-        <span class="btn-emoji">🔄</span>
+      <button class="control-btn new-btn" @click="handleNewClick" :disabled="isShowingFeedback" aria-label="Start New Game">
+        <span class="btn-emoji" aria-hidden="true">🔄</span>
         <span class="btn-label">New</span>
-        <span class="btn-shortcut">{{ getShortcutLabel(SHORTCUTS.NEW.key) }}</span>
+        <span class="btn-shortcut" aria-hidden="true">{{ getShortcutLabel(SHORTCUTS.NEW.key) }}</span>
       </button>
-      <button class="control-btn skip-btn" @click="handleSkip" :disabled="isShowingFeedback">
-        <span class="btn-emoji">⏭️</span>
+      <button class="control-btn skip-btn" @click="handleSkip" :disabled="isShowingFeedback" aria-label="Skip Problem">
+        <span class="btn-emoji" aria-hidden="true">⏭️</span>
         <span class="btn-label">Skip</span>
-        <span class="btn-shortcut">{{ getShortcutLabel(SHORTCUTS.SKIP.key) }}</span>
+        <span class="btn-shortcut" aria-hidden="true">{{ getShortcutLabel(SHORTCUTS.SKIP.key) }}</span>
       </button>
-      <button class="control-btn hint-btn" @click="handleHint" :disabled="isShowingFeedback">
-        <span class="btn-emoji">💡</span>
+      <button class="control-btn hint-btn" @click="handleHint" :disabled="isShowingFeedback" aria-label="Get Hint">
+        <span class="btn-emoji" aria-hidden="true">💡</span>
         <span class="btn-label">Hint</span>
-        <span class="btn-shortcut">{{ getShortcutLabel(SHORTCUTS.HINT.key) }}</span>
+        <span class="btn-shortcut" aria-hidden="true">{{ getShortcutLabel(SHORTCUTS.HINT.key) }}</span>
       </button>
-      <button class="control-btn check-btn" @click="handleCheck" :disabled="isShowingFeedback">
-        <span class="btn-emoji">🎯</span>
+      <button class="control-btn check-btn" @click="handleCheck" :disabled="isShowingFeedback" aria-label="Check Answer">
+        <span class="btn-emoji" aria-hidden="true">🎯</span>
         <span class="btn-label">Check</span>
-        <span class="btn-shortcut">{{ getShortcutLabel(SHORTCUTS.CHECK.key) }}</span>
+        <span class="btn-shortcut" aria-hidden="true">{{ getShortcutLabel(SHORTCUTS.CHECK.key) }}</span>
       </button>
     </div>
 
     <!-- Encouragement Message -->
-    <div class="encouragement">
+    <div class="encouragement" aria-hidden="true">
       <span class="encouragement-emoji">🎪</span>
       <p class="encouragement-text">
         Solve the problem to discover more safari animals!
@@ -214,17 +215,17 @@ onMounted(() => {
 
     <!-- Confirm New Modal -->
     <Teleport to="body">
-      <div v-if="showConfirmModal" class="modal-overlay" @click="cancelNew">
-        <div class="modal" @click.stop>
-          <div class="modal-emoji">🆕</div>
-          <h3 class="modal-title">Start New Game?</h3>
+      <div v-if="showConfirmModal" class="modal-overlay" @click="cancelNew" role="presentation">
+        <div class="modal" @click.stop role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+          <div class="modal-emoji" aria-hidden="true">🆕</div>
+          <h3 id="confirm-title" class="modal-title">Start New Game?</h3>
           <p class="modal-message">
             This will reset your score and start a new session.
           </p>
           <div class="modal-buttons">
             <button class="modal-btn cancel-btn" @click="cancelNew">
               Cancel
-              <span class="shortcut-hint">[{{ getShortcutLabel(SHORTCUTS.ESCAPE.key) }}]</span>
+              <span class="shortcut-hint" aria-hidden="true">[{{ getShortcutLabel(SHORTCUTS.ESCAPE.key) }}]</span>
             </button>
             <button class="modal-btn confirm-btn" @click="confirmNew">
               Start New
@@ -236,21 +237,21 @@ onMounted(() => {
 
     <!-- Hint Modal -->
     <Teleport to="body">
-      <div v-if="showHintModal && hint" class="modal-overlay" @click="closeHintModal">
-        <div class="modal hint-modal" @click.stop>
-          <div class="modal-emoji">💡</div>
-          <h3 class="modal-title">{{ getStrategyDisplayName(hint.strategy) }}</h3>
+      <div v-if="showHintModal && hint" class="modal-overlay" @click="closeHintModal" role="presentation">
+        <div class="modal hint-modal" @click.stop role="dialog" aria-modal="true" aria-labelledby="hint-title">
+          <div class="modal-emoji" aria-hidden="true">💡</div>
+          <h3 id="hint-title" class="modal-title">{{ getStrategyDisplayName(hint.strategy) }}</h3>
           <p class="modal-message hint-text">
             {{ hint.message }}
           </p>
           <button class="modal-btn close-btn" @click="closeHintModal">
             Got it!
-            <span class="shortcut-hint">[{{ getShortcutLabel(SHORTCUTS.ESCAPE.key) }}]</span>
+            <span class="shortcut-hint" aria-hidden="true">[{{ getShortcutLabel(SHORTCUTS.ESCAPE.key) }}]</span>
           </button>
         </div>
       </div>
     </Teleport>
-  </div>
+  </main>
 </template>
 
 <style scoped>
