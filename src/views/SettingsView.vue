@@ -303,8 +303,8 @@ useKeyboardShortcuts([
 }
 
 .option-btn.active .check-indicator {
-  background: var(--color-success);
-  color: white;
+  color: #059669;
+  border: 1px solid var(--color-success);
 }
 
 /* Difficulty button specifics */

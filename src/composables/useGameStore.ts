@@ -13,9 +13,10 @@ import type {
     Hint,
     ViewState,
 } from "@/types";
+import { SCORING } from "@/types";
 import { generateProblem, isAnswerCorrect } from "@/utils/mathGen";
 import { generateHint } from "@/services/hintGenerator";
-import { calculateScoreSummary } from "@/services/scoringEngine";
+import { calculateScoreSummary, calculateProblemPoints } from "@/services/scoringEngine";
 import { storage, STORAGE_KEYS } from "@/services/persistenceService";
 import { useSettingsStore } from "./useSettingsStore";
 
@@ -94,28 +95,25 @@ export function useGameStore() {
         const correct = isAnswerCorrect(userAnswer, currentProblem.value.answer);
         const hintUsed = currentHint.value !== null;
 
-        // Calculate points for this problem
-        let points = 0;
-        if (correct) {
-            points = 10; // Base points
-            if (hintUsed) points -= 3; // Hint penalty
-
-            // Time bonus
-            const timeSeconds = timeToAnswer / 1000;
-            if (timeSeconds < 2) points += 2;
-            else if (timeSeconds < 3) points += 1;
-        }
-
-        // Record result
-        const result: ProblemResult = {
+        // Calculate points using the centralized scoring engine
+        // We create a temporary result object to pass to the calculator
+        const tempResult: ProblemResult = {
             problemId: currentProblem.value.id,
             answered: true,
             correct,
             skipped: false,
             hintUsed,
             timeToAnswer,
-            pointsAwarded: points,
+            pointsAwarded: 0, // Placeholder
             timestamp: Date.now(),
+        };
+
+        const points = calculateProblemPoints(tempResult, hintUsed);
+
+        // Record result
+        const result: ProblemResult = {
+            ...tempResult,
+            pointsAwarded: points,
         };
 
         session.value.results.push(result);
@@ -142,12 +140,14 @@ export function useGameStore() {
             skipped: true,
             hintUsed: currentHint.value !== null,
             timeToAnswer: Date.now() - problemStartTime.value,
-            pointsAwarded: -2,
+            pointsAwarded: -SCORING.SKIP_PENALTY,
             timestamp: Date.now(),
         };
 
+        const points = -SCORING.SKIP_PENALTY;
+
         session.value.results.push(result);
-        currentScore.value = Math.max(0, currentScore.value - 2);
+        currentScore.value = Math.max(0, currentScore.value + points);
 
         nextProblem();
         saveSession();
