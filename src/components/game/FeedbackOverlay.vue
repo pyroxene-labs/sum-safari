@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { formatAnswer } from "@/utils/mathGen";
+import { formatAnswer } from "@/domain";
 import { SHORTCUTS, getShortcutLabel } from "@/services/keyboardManager";
 
 defineProps<{

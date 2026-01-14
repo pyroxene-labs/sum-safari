@@ -6,7 +6,7 @@
 import { ref, computed } from "vue";
 import type { Problem, ProblemResult, GameSession, SessionSettings, ScoreSummary, Hint, ViewState } from "@/types";
 import { SCORING } from "@/types";
-import { generateProblem, isAnswerCorrect } from "@/utils/mathGen";
+import { generateProblem, isAnswerCorrect } from "@/domain";
 import { generateHint } from "@/services/hintGenerator";
 import { calculateScoreSummary, calculateProblemPoints } from "@/services/scoringEngine";
 import { storage, STORAGE_KEYS } from "@/services/persistenceService";

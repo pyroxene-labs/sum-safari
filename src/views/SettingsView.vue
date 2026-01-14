@@ -4,17 +4,17 @@ import { SCORING } from "@/types";
 import { useSettingsStore } from "@/composables/useSettingsStore";
 import { useGameStore } from "@/composables/useGameStore";
 import { useKeyboardShortcuts } from "@/services/keyboardManager";
+import { getAllOperators } from "@/domain";
 
 const settingsStore = useSettingsStore();
 const gameStore = useGameStore();
 
-// Operator options
-const operatorOptions: { value: Operator; label: string; emoji: string }[] = [
-  { value: "+", label: "Addition", emoji: "➕" },
-  { value: "-", label: "Subtraction", emoji: "➖" },
-  { value: "×", label: "Multiplication", emoji: "✖️" },
-  { value: "÷", label: "Division", emoji: "➗" },
-];
+// Operator options from registry
+const operatorOptions = getAllOperators().map((op) => ({
+  value: op.symbol,
+  label: op.label,
+  emoji: op.displaySymbol,
+}));
 
 // Difficulty options
 const difficultyOptions: { value: Difficulty; label: string; multiplier: number }[] = [

@@ -1,11 +1,11 @@
 import { describe, it, expect } from "vitest";
-import { generateProblem, isAnswerCorrect } from "./mathGen";
+import { generateProblem, isAnswerCorrect } from "./problemGenerator";
 import { SAFARI_ANIMALS } from "@/types";
 
 // Mock crypto.randomUUID since it's used in proper environment but might fail in some test envs depending on setup
 // But jsdom usually supports it. If it fails we'll mock it.
 
-describe("mathGen", () => {
+describe("problemGenerator", () => {
   describe("generateProblem", () => {
     it("generates addition within range", () => {
       const p = generateProblem("easy", ["+"]);
@@ -14,7 +14,7 @@ describe("mathGen", () => {
       expect(SAFARI_ANIMALS).toContain(p.animal);
     });
 
-    it("generates subtraction without negatives", () => {
+    it("generates subtraction without negatives on easy/medium", () => {
       // run multiple times to ensure no negatives appear by random chance
       for (let i = 0; i < 20; i++) {
         const p = generateProblem("medium", ["-"]);
@@ -22,6 +22,16 @@ describe("mathGen", () => {
         expect(p.operand1).toBeGreaterThanOrEqual(p.operand2);
         expect(p.answer).toBeGreaterThanOrEqual(0);
       }
+    });
+
+    it("allows negative results for subtraction on hard", () => {
+      // Run many times to verify hard mode doesn't swap operands
+      for (let i = 0; i < 50; i++) {
+        const p = generateProblem("hard", ["-"]);
+        expect(p.operator).toBe("-");
+        expect(p.answer).toBe(p.operand1 - p.operand2);
+      }
+      // The key is that we don't swap operands on hard mode, so negatives are possible
     });
 
     it("generates multiplication respecting difficulty", () => {
