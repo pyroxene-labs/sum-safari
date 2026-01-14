@@ -4,6 +4,8 @@
 
 SumSafari challenges players to solve math problems (Addition, Subtraction, Multiplication, Division) against the clock to "collect" animals. It features adaptive difficulty, comprehensive scoring, and a focus on accessibility.
 
+[**Play Now**](https://pyroxene-labs.github.io/sum-safari/)
+
 ## 🚀 Features
 
 - **Customizable Sessions**: Toggle operations, set difficulty (Easy/Medium/Hard), and choose session duration.
