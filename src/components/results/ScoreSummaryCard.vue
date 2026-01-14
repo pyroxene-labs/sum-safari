@@ -103,11 +103,11 @@ defineProps<{
   border-radius: 1.5rem;
   overflow: hidden;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-  border: 3px solid #E5E7EB;
+  border: 3px solid #e5e7eb;
 }
 
 .final-score {
-  background: linear-gradient(135deg, #34D399 0%, #059669 100%);
+  background: linear-gradient(135deg, #34d399 0%, #059669 100%);
   padding: 2rem;
   text-align: center;
   color: white;
@@ -132,16 +132,16 @@ defineProps<{
 
 .score-breakdown {
   padding: 1.5rem;
-  background: #F9FAFB;
+  background: #f9fafb;
 }
 
 .breakdown-title {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #1F2937;
+  color: #1f2937;
   margin: 0 0 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid #E5E7EB;
+  border-bottom: 2px solid #e5e7eb;
 }
 
 .breakdown-row {
@@ -153,7 +153,7 @@ defineProps<{
   background: white;
   border-radius: 0.75rem;
   margin-bottom: 0.5rem;
-  border: 1px solid #E5E7EB;
+  border: 1px solid #e5e7eb;
 }
 
 .breakdown-row:last-child {
@@ -174,7 +174,7 @@ defineProps<{
 
 .breakdown-value {
   font-weight: 700;
-  color: #1F2937;
+  color: #1f2937;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -189,19 +189,19 @@ defineProps<{
 }
 
 .positive .points {
-  background: #D1FAE5;
-  color: #065F46;
-  border: 1px solid #6EE7B7;
+  background: #d1fae5;
+  color: #065f46;
+  border: 1px solid #6ee7b7;
 }
 
 .negative .points {
-  background: #FEE2E2;
-  color: #991B1B;
-  border: 1px solid #FCA5A5;
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
 }
 
 .warning .breakdown-label {
-  color: #92400E;
+  color: #92400e;
 }
 
 .hint-explanation {
@@ -211,15 +211,15 @@ defineProps<{
 
 .breakdown-divider {
   height: 3px;
-  background: linear-gradient(90deg, #E5E7EB 0%, #D1D5DB 50%, #E5E7EB 100%);
+  background: linear-gradient(90deg, #e5e7eb 0%, #d1d5db 50%, #e5e7eb 100%);
   margin: 1rem 0;
   border-radius: 2px;
 }
 
 .subtotal {
   font-weight: 700;
-  background: #F3F4F6;
-  border: 2px solid #D1D5DB;
+  background: #f3f4f6;
+  border: 2px solid #d1d5db;
 }
 
 .subtotal .breakdown-value {
@@ -229,16 +229,16 @@ defineProps<{
 
 .multiplier {
   font-weight: 600;
-  background: #FEF3C7;
-  border: 2px solid #FCD34D;
+  background: #fef3c7;
+  border: 2px solid #fcd34d;
 }
 
 .multiplier .breakdown-label {
-  color: #92400E;
+  color: #92400e;
 }
 
 .multiplier .breakdown-value {
-  color: #92400E;
+  color: #92400e;
   font-size: 1.1rem;
 }
 </style>

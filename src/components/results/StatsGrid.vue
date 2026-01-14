@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed } from "vue";
 
 const props = defineProps<{
   accuracy: number;
@@ -7,19 +7,19 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: 'view-collection'): void;
+  (e: "view-collection"): void;
 }>();
 
 const accuracyLevel = computed(() => {
-  if (props.accuracy >= 75) return 'high';
-  if (props.accuracy >= 45) return 'medium';
-  return 'low';
+  if (props.accuracy >= 75) return "high";
+  if (props.accuracy >= 45) return "medium";
+  return "low";
 });
 
 const accuracyEmoji = computed(() => {
-  if (props.accuracy >= 75) return '✅';
-  if (props.accuracy >= 45) return '⚠️';
-  return '📚';
+  if (props.accuracy >= 75) return "✅";
+  if (props.accuracy >= 45) return "⚠️";
+  return "📚";
 });
 </script>
 
@@ -30,13 +30,7 @@ const accuracyEmoji = computed(() => {
       <span class="stat-value">{{ accuracy }}%</span>
       <span class="stat-label">Accuracy</span>
     </div>
-    <button 
-      class="stat-card animals-card" 
-      :class="{ clickable: animalsCollected.length > 0 }"
-      @click="emit('view-collection')"
-      :disabled="animalsCollected.length === 0"
-      :aria-label="'Animals Found: ' + animalsCollected.length + (animalsCollected.length > 0 ? ', tap to view collection' : '')"
-    >
+    <button class="stat-card animals-card" :class="{ clickable: animalsCollected.length > 0 }" @click="emit('view-collection')" :disabled="animalsCollected.length === 0" :aria-label="'Animals Found: ' + animalsCollected.length + (animalsCollected.length > 0 ? ', tap to view collection' : '')">
       <span class="stat-emoji" aria-hidden="true">🦁</span>
       <span class="stat-value">{{ animalsCollected.length }}</span>
       <span class="stat-label">Animals Found</span>
@@ -83,8 +77,8 @@ const accuracyEmoji = computed(() => {
 
 /* Accuracy level colors */
 .stat-card.accuracy-high {
-  border-color: #10B981;
-  background: #ECFDF5;
+  border-color: #10b981;
+  background: #ecfdf5;
 }
 
 .stat-card.accuracy-high .stat-value {
@@ -92,21 +86,21 @@ const accuracyEmoji = computed(() => {
 }
 
 .stat-card.accuracy-medium {
-  border-color: #F59E0B;
-  background: #FFFBEB;
+  border-color: #f59e0b;
+  background: #fffbeb;
 }
 
 .stat-card.accuracy-medium .stat-value {
-  color: #D97706;
+  color: #d97706;
 }
 
 .stat-card.accuracy-low {
-  border-color: #EF4444;
-  background: #FEF2F2;
+  border-color: #ef4444;
+  background: #fef2f2;
 }
 
 .stat-card.accuracy-low .stat-value {
-  color: #DC2626;
+  color: #dc2626;
 }
 
 .animals-card.clickable {
@@ -122,7 +116,7 @@ const accuracyEmoji = computed(() => {
 .tap-hint {
   display: block;
   font-size: 0.7rem;
-  color: #6B7280;
+  color: #6b7280;
   margin-top: 0.25rem;
 }
 </style>

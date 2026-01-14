@@ -8,7 +8,7 @@ defineProps<{
 }>();
 
 defineEmits<{
-  (e: 'continue'): void;
+  (e: "continue"): void;
 }>();
 </script>
 
@@ -42,11 +42,11 @@ defineEmits<{
 }
 
 .feedback-overlay.correct {
-  background: #D1FAE5;
+  background: #d1fae5;
 }
 
 .feedback-overlay.wrong {
-  background: #FEE2E2;
+  background: #fee2e2;
 }
 
 .feedback-emoji {
@@ -95,13 +95,23 @@ defineEmits<{
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes bounceIn {
-  0% { transform: scale(0); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 </style>

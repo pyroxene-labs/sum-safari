@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
 import { useGameStore } from "@/composables/useGameStore";
-import {
-  useKeyboardShortcuts,
-  SHORTCUTS,
-} from "@/services/keyboardManager";
+import { useKeyboardShortcuts, SHORTCUTS } from "@/services/keyboardManager";
 import GameHeader from "@/components/game/GameHeader.vue";
 import ProblemCard from "@/components/game/ProblemCard.vue";
 import GameControls from "@/components/game/GameControls.vue";
@@ -132,52 +129,24 @@ onMounted(() => {
 <template>
   <main class="game-view">
     <!-- Score Bar -->
-    <GameHeader 
-      :score="currentScore" 
-      :formatted-time="formattedTime" 
-      :time-remaining="timeRemaining" 
-    />
+    <GameHeader :score="currentScore" :formatted-time="formattedTime" :time-remaining="timeRemaining" />
 
     <!-- Problem Card -->
-    <ProblemCard
-      v-if="problem"
-      ref="problemCard"
-      :problem="problem"
-      v-model="userAnswer"
-      :is-showing-feedback="isShowingFeedback"
-      :was-correct="wasCorrect"
-      @continue="handleContinue"
-    />
+    <ProblemCard v-if="problem" ref="problemCard" :problem="problem" v-model="userAnswer" :is-showing-feedback="isShowingFeedback" :was-correct="wasCorrect" @continue="handleContinue" />
 
     <!-- Control Buttons -->
-    <GameControls 
-      :disabled="isShowingFeedback"
-      @new="handleNewClick"
-      @skip="handleSkip"
-      @hint="handleHint"
-      @check="handleCheck"
-    />
+    <GameControls :disabled="isShowingFeedback" @new="handleNewClick" @skip="handleSkip" @hint="handleHint" @check="handleCheck" />
 
     <!-- Encouragement Message -->
     <div class="encouragement" aria-hidden="true">
       <span class="encouragement-emoji">🎪</span>
-      <p class="encouragement-text">
-        Solve the problem to discover more safari animals!
-      </p>
+      <p class="encouragement-text">Solve the problem to discover more safari animals!</p>
     </div>
 
     <!-- Modals -->
-    <ConfirmModal 
-      :show="showConfirmModal"
-      @confirm="confirmNew"
-      @cancel="cancelNew"
-    />
+    <ConfirmModal :show="showConfirmModal" @confirm="confirmNew" @cancel="cancelNew" />
 
-    <HintModal 
-      :show="showHintModal"
-      :hint="hint"
-      @close="closeHintModal"
-    />
+    <HintModal :show="showHintModal" :hint="hint" @close="closeHintModal" />
   </main>
 </template>
 

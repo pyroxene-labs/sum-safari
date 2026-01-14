@@ -6,11 +6,11 @@ defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: 'confirm'): void;
-  (e: 'cancel'): void;
+  (e: "confirm"): void;
+  (e: "cancel"): void;
 }>();
 
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from "vue";
 
 const cancelButton = ref<HTMLButtonElement | null>(null);
 
@@ -26,17 +26,13 @@ onMounted(() => {
       <div class="modal" @click.stop role="dialog" aria-modal="true" aria-labelledby="confirm-title">
         <div class="modal-emoji" aria-hidden="true">🆕</div>
         <h3 id="confirm-title" class="modal-title">Start New Game?</h3>
-        <p class="modal-message">
-          This will reset your score and start a new session.
-        </p>
+        <p class="modal-message">This will reset your score and start a new session.</p>
         <div class="modal-buttons">
           <button ref="cancelButton" class="modal-btn cancel-btn" @click="emit('cancel')">
             Cancel
             <span class="shortcut-hint" aria-hidden="true">[{{ getShortcutLabel(SHORTCUTS.ESCAPE.key) }}]</span>
           </button>
-          <button class="modal-btn confirm-btn" @click="emit('confirm')">
-            Start New
-          </button>
+          <button class="modal-btn confirm-btn" @click="emit('confirm')">Start New</button>
         </div>
       </div>
     </div>
@@ -107,16 +103,16 @@ onMounted(() => {
 .cancel-btn {
   background: white;
   color: #374151;
-  border: 2px solid #D1D5DB;
+  border: 2px solid #d1d5db;
 }
 
 .cancel-btn:hover {
-  background: #F3F4F6;
-  border-color: #9CA3AF;
+  background: #f3f4f6;
+  border-color: #9ca3af;
 }
 
 .confirm-btn {
-  background: linear-gradient(135deg, #34D399 0%, #059669 100%);
+  background: linear-gradient(135deg, #34d399 0%, #059669 100%);
   color: white;
   border: 2px solid #059669;
   box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
@@ -137,8 +133,12 @@ onMounted(() => {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {

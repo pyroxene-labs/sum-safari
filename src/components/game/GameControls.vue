@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import { SHORTCUTS, getShortcutLabel } from "@/services/keyboardManager";
 
 defineProps<{
@@ -7,10 +6,10 @@ defineProps<{
 }>();
 
 defineEmits<{
-  (e: 'new'): void;
-  (e: 'skip'): void;
-  (e: 'hint'): void;
-  (e: 'check'): void;
+  (e: "new"): void;
+  (e: "skip"): void;
+  (e: "hint"): void;
+  (e: "check"): void;
 }>();
 </script>
 
@@ -83,27 +82,27 @@ defineEmits<{
 }
 
 .new-btn {
-  background: #E8F4FD;
-  border: 2px solid #93C5FD;
-  color: #1E40AF;
+  background: #e8f4fd;
+  border: 2px solid #93c5fd;
+  color: #1e40af;
 }
 
 .skip-btn {
-  background: #F3E8FF;
-  border: 2px solid #C4B5FD;
-  color: #5B21B6;
+  background: #f3e8ff;
+  border: 2px solid #c4b5fd;
+  color: #5b21b6;
 }
 
 .hint-btn {
-  background: #FEF3C7;
-  border: 2px solid #FCD34D;
-  color: #92400E;
+  background: #fef3c7;
+  border: 2px solid #fcd34d;
+  color: #92400e;
 }
 
 .check-btn {
-  background: #D1FAE5;
-  border: 2px solid #6EE7B7;
-  color: #065F46;
+  background: #d1fae5;
+  border: 2px solid #6ee7b7;
+  color: #065f46;
 }
 
 @media (max-width: 480px) {

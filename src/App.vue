@@ -25,6 +25,6 @@ onMounted(async () => {
 .app {
   position: relative;
   min-height: 100vh;
-  background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%);
+  background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
 }
 </style>

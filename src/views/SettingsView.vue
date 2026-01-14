@@ -3,9 +3,7 @@ import type { Operator, Difficulty } from "@/types";
 import { SCORING } from "@/types";
 import { useSettingsStore } from "@/composables/useSettingsStore";
 import { useGameStore } from "@/composables/useGameStore";
-import {
-  useKeyboardShortcuts,
-} from "@/services/keyboardManager";
+import { useKeyboardShortcuts } from "@/services/keyboardManager";
 
 const settingsStore = useSettingsStore();
 const gameStore = useGameStore();
@@ -69,19 +67,7 @@ useKeyboardShortcuts([
         </h2>
         <p class="section-hint">Choose how challenging the problems will be</p>
         <div class="difficulty-grid" role="radiogroup" aria-labelledby="difficulty-title">
-          <button
-            v-for="option in difficultyOptions"
-            :key="option.value"
-            :class="[
-              'option-btn',
-              'difficulty-btn',
-              { active: settingsStore.difficulty.value === option.value },
-            ]"
-            @click="settingsStore.setDifficulty(option.value)"
-            role="radio"
-            :aria-checked="settingsStore.difficulty.value === option.value"
-            :aria-label="option.label + ' difficulty, multiplier ' + option.multiplier + 'x'"
-          >
+          <button v-for="option in difficultyOptions" :key="option.value" :class="['option-btn', 'difficulty-btn', { active: settingsStore.difficulty.value === option.value }]" @click="settingsStore.setDifficulty(option.value)" role="radio" :aria-checked="settingsStore.difficulty.value === option.value" :aria-label="option.label + ' difficulty, multiplier ' + option.multiplier + 'x'">
             <span class="check-indicator" aria-hidden="true">✓</span>
             <span class="difficulty-label">{{ option.label }}</span>
             <span class="difficulty-multiplier">×{{ option.multiplier }} score</span>
@@ -96,18 +82,7 @@ useKeyboardShortcuts([
         </h2>
         <p class="section-hint">Select which operations to practice (pick at least one)</p>
         <div class="operators-grid" role="group" aria-labelledby="ops-title">
-          <button
-            v-for="op in operatorOptions"
-            :key="op.value"
-            :class="[
-              'option-btn',
-              'operator-btn',
-              { active: isOperatorSelected(op.value) },
-            ]"
-            @click="settingsStore.toggleOperator(op.value)"
-            role="checkbox"
-            :aria-checked="isOperatorSelected(op.value)"
-          >
+          <button v-for="op in operatorOptions" :key="op.value" :class="['option-btn', 'operator-btn', { active: isOperatorSelected(op.value) }]" @click="settingsStore.toggleOperator(op.value)" role="checkbox" :aria-checked="isOperatorSelected(op.value)">
             <span class="check-indicator" aria-hidden="true">✓</span>
             <span class="operator-emoji" aria-hidden="true">{{ op.emoji }}</span>
             <span class="operator-label">{{ op.label }}</span>
@@ -122,18 +97,7 @@ useKeyboardShortcuts([
         </h2>
         <p class="section-hint">How long should each practice session last?</p>
         <div class="timer-grid" role="radiogroup" aria-labelledby="timer-title">
-          <button
-            v-for="seconds in timerPresets"
-            :key="seconds"
-            :class="[
-              'option-btn',
-              'timer-btn',
-              { active: settingsStore.timerDuration.value === seconds },
-            ]"
-            @click="settingsStore.setTimerDuration(seconds)"
-            role="radio"
-            :aria-checked="settingsStore.timerDuration.value === seconds"
-          >
+          <button v-for="seconds in timerPresets" :key="seconds" :class="['option-btn', 'timer-btn', { active: settingsStore.timerDuration.value === seconds }]" @click="settingsStore.setTimerDuration(seconds)" role="radio" :aria-checked="settingsStore.timerDuration.value === seconds">
             <span class="check-indicator" aria-hidden="true">✓</span>
             <span class="timer-label">{{ formatTimer(seconds) }}</span>
           </button>
@@ -150,9 +114,7 @@ useKeyboardShortcuts([
     </button>
 
     <footer class="settings-footer">
-      <p class="scoring-info">
-        🏆 +10 correct • ⏰ +2 bonus (&lt;2s) • 💡 -2 hint • ⏭️ -5 skip
-      </p>
+      <p class="scoring-info">🏆 +10 correct • ⏰ +2 bonus (&lt;2s) • 💡 -2 hint • ⏭️ -5 skip</p>
     </footer>
   </main>
 </template>
@@ -298,7 +260,7 @@ useKeyboardShortcuts([
 /* Active state - clearly selected */
 .option-btn.active {
   border-color: var(--color-success-dark);
-  background: linear-gradient(135deg, #E8FFF0 0%, #D1FAE5 100%);
+  background: linear-gradient(135deg, #e8fff0 0%, #d1fae5 100%);
   box-shadow: 0 4px 12px rgba(52, 211, 153, 0.2);
 }
 
@@ -368,7 +330,7 @@ useKeyboardShortcuts([
   font-size: 1.25rem;
   font-weight: 700;
   color: white;
-  background: linear-gradient(135deg, #34D399 0%, #059669 100%);
+  background: linear-gradient(135deg, #34d399 0%, #059669 100%);
   border: 4px solid #059669;
   border-radius: 1.5rem;
   cursor: pointer;
@@ -427,7 +389,8 @@ useKeyboardShortcuts([
 }
 
 @keyframes bounce {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {

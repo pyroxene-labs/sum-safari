@@ -5,24 +5,27 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: 'close'): void;
+  (e: "close"): void;
 }>();
 
-import { ref, onMounted, watch, nextTick } from 'vue';
+import { ref, onMounted, watch, nextTick } from "vue";
 
 const closeButton = ref<HTMLButtonElement | null>(null);
 
 onMounted(() => {
   if (props.show) {
-     nextTick(() => closeButton.value?.focus());
-  }
-});
-
-watch(() => props.show, (newVal) => {
-  if (newVal) {
     nextTick(() => closeButton.value?.focus());
   }
 });
+
+watch(
+  () => props.show,
+  (newVal) => {
+    if (newVal) {
+      nextTick(() => closeButton.value?.focus());
+    }
+  },
+);
 </script>
 
 <template>
@@ -37,9 +40,7 @@ watch(() => props.show, (newVal) => {
             {{ animal }}
           </span>
         </div>
-        <button ref="closeButton" class="close-animals-btn" @click="emit('close')" aria-label="Close Modal">
-          Close [Esc]
-        </button>
+        <button ref="closeButton" class="close-animals-btn" @click="emit('close')" aria-label="Close Modal">Close [Esc]</button>
       </div>
     </div>
   </Teleport>
@@ -75,13 +76,13 @@ watch(() => props.show, (newVal) => {
 .modal-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1F2937;
+  color: #1f2937;
   margin: 0 0 0.5rem;
 }
 
 .modal-message {
   font-size: 1rem;
-  color: #6B7280;
+  color: #6b7280;
   margin: 0 0 1rem;
 }
 
@@ -92,7 +93,7 @@ watch(() => props.show, (newVal) => {
   gap: 0.75rem;
   margin-bottom: 1.5rem;
   padding: 1rem;
-  background: #F9FAFB;
+  background: #f9fafb;
   border-radius: 1rem;
 }
 
@@ -101,21 +102,49 @@ watch(() => props.show, (newVal) => {
   animation: pop-in 0.3s ease forwards;
 }
 
-.animal-item:nth-child(1) { animation-delay: 0s; }
-.animal-item:nth-child(2) { animation-delay: 0.05s; }
-.animal-item:nth-child(3) { animation-delay: 0.1s; }
-.animal-item:nth-child(4) { animation-delay: 0.15s; }
-.animal-item:nth-child(5) { animation-delay: 0.2s; }
-.animal-item:nth-child(6) { animation-delay: 0.25s; }
-.animal-item:nth-child(7) { animation-delay: 0.3s; }
-.animal-item:nth-child(8) { animation-delay: 0.35s; }
-.animal-item:nth-child(9) { animation-delay: 0.4s; }
-.animal-item:nth-child(10) { animation-delay: 0.45s; }
+.animal-item:nth-child(1) {
+  animation-delay: 0s;
+}
+.animal-item:nth-child(2) {
+  animation-delay: 0.05s;
+}
+.animal-item:nth-child(3) {
+  animation-delay: 0.1s;
+}
+.animal-item:nth-child(4) {
+  animation-delay: 0.15s;
+}
+.animal-item:nth-child(5) {
+  animation-delay: 0.2s;
+}
+.animal-item:nth-child(6) {
+  animation-delay: 0.25s;
+}
+.animal-item:nth-child(7) {
+  animation-delay: 0.3s;
+}
+.animal-item:nth-child(8) {
+  animation-delay: 0.35s;
+}
+.animal-item:nth-child(9) {
+  animation-delay: 0.4s;
+}
+.animal-item:nth-child(10) {
+  animation-delay: 0.45s;
+}
 
 @keyframes pop-in {
-  0% { transform: scale(0); opacity: 0; }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .close-animals-btn {
@@ -124,8 +153,8 @@ watch(() => props.show, (newVal) => {
   font-size: 1rem;
   font-weight: 600;
   color: white;
-  background: linear-gradient(135deg, #FB923C 0%, #EA580C 100%);
-  border: 2px solid #EA580C;
+  background: linear-gradient(135deg, #fb923c 0%, #ea580c 100%);
+  border: 2px solid #ea580c;
   border-radius: 1rem;
   cursor: pointer;
   transition: all 0.2s ease;

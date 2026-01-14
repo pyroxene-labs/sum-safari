@@ -6,9 +6,6 @@
 import type { Problem, Operator, Difficulty } from "@/types";
 import { SAFARI_ANIMALS } from "@/types";
 
-// Common decimals for hard division
-const COMMON_DECIMALS = [0.5, 0.25, 0.33, 0.2, 0.66, 0.75];
-
 /**
  * Generate a random number in range (inclusive)
  */
@@ -121,15 +118,15 @@ function generateDivision(difficulty: Difficulty): Omit<Problem, "id" | "animal"
 
   if (difficulty === "hard" && Math.random() < 0.3) {
     // 30% chance of decimal answer on hard
-    const decimalAnswer = getRandomItem(COMMON_DECIMALS);
-    operand2 = getRandomNumber(2, 10);
-    operand1 = Math.round(decimalAnswer * operand2 * 100) / 100 * operand2;
+    // Pick a divisor that produces relatively clean decimals
+    const possibleDivisors = [2, 3, 4, 5]; // Results in .5, .33, .25, .2
+    operand2 = getRandomItem(possibleDivisors);
 
-    // Actually, let's make it cleaner: pick a divisor and create a decimal result
-    const baseNumber = getRandomNumber(1, 20);
-    const decimalMultiplier = getRandomItem([2, 3, 4, 5]); // Results in .5, .33, .25, .2
-    operand2 = decimalMultiplier;
-    operand1 = baseNumber;
+    // Ensure we get a non-integer result
+    do {
+      operand1 = getRandomNumber(1, 20);
+    } while (operand1 % operand2 === 0);
+
     answer = Math.round((operand1 / operand2) * 100) / 100;
   } else {
     // Whole number division
@@ -166,6 +163,7 @@ function generateDivision(difficulty: Difficulty): Omit<Problem, "id" | "animal"
 /**
  * Generate a problem for the given difficulty and operators
  */
+// prettier-ignore
 export function generateProblem(
   difficulty: Difficulty,
   operators: Operator[] = ["+", "-", "×", "÷"]

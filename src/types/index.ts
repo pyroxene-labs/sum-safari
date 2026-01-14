@@ -69,6 +69,7 @@ export interface ScoreSummary {
 }
 
 // Hint types
+// prettier-ignore
 export type HintStrategy =
   | "making-tens"
   | "place-value"
@@ -123,6 +124,7 @@ export const DEFAULT_SETTINGS: GlobalSettings = {
 };
 
 // Safari animals for problems
+// prettier-ignore
 export const SAFARI_ANIMALS = [
   "🦁",
   "🦒",

@@ -9,10 +9,10 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: 'close'): void;
+  (e: "close"): void;
 }>();
 
-import { ref, onMounted, nextTick, watch } from 'vue';
+import { ref, onMounted, nextTick, watch } from "vue";
 
 const closeButton = ref<HTMLButtonElement | null>(null);
 
@@ -23,11 +23,14 @@ onMounted(() => {
   }
 });
 
-watch(() => props.show, (newVal) => {
-  if (newVal) {
-    nextTick(() => closeButton.value?.focus());
-  }
-});
+watch(
+  () => props.show,
+  (newVal) => {
+    if (newVal) {
+      nextTick(() => closeButton.value?.focus());
+    }
+  },
+);
 </script>
 
 <template>
@@ -114,9 +117,9 @@ watch(() => props.show, (newVal) => {
 
 .close-btn {
   width: 100%;
-  background: #FB923C;
+  background: #fb923c;
   color: white;
-  border: 2px solid #EA580C;
+  border: 2px solid #ea580c;
 }
 
 .modal-btn:hover {
@@ -130,8 +133,12 @@ watch(() => props.show, (newVal) => {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {

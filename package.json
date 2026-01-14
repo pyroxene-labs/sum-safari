@@ -11,7 +11,8 @@
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
     "test:unit": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "all": "npm run lint && npm run format && vitest run && npm run test:e2e"
   },
   "dependencies": {
     "motion": "^10.18.0",

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from "vue";
 import { useAutoFocusInput } from "@/services/keyboardManager";
-import FeedbackOverlay from './FeedbackOverlay.vue';
-import type { Problem } from '@/types';
+import FeedbackOverlay from "./FeedbackOverlay.vue";
+import type { Problem } from "@/types";
 
 defineProps<{
   problem: Problem;
@@ -12,8 +12,8 @@ defineProps<{
 }>();
 
 defineEmits<{
-  (e: 'update:modelValue', value: string): void;
-  (e: 'continue'): void;
+  (e: "update:modelValue", value: string): void;
+  (e: "continue"): void;
 }>();
 
 const answerInput = ref<HTMLInputElement | null>(null);
@@ -32,7 +32,7 @@ onMounted(() => {
 });
 
 defineExpose({
-  focusInput
+  focusInput,
 });
 </script>
 
@@ -42,33 +42,15 @@ defineExpose({
     <div class="problem-animal" aria-hidden="true">{{ problem.animal }}</div>
 
     <!-- Equation -->
-    <div class="problem-equation" :aria-label="`${problem.operand1} ${problem.operator === '×' ? 'times' : problem.operator === '÷' ? 'divided by' : problem.operator} ${problem.operand2} equals what?`">
-      {{ problem.operand1 }} {{ problem.operator }} {{ problem.operand2 }} = ?
-    </div>
+    <div class="problem-equation" :aria-label="`${problem.operand1} ${problem.operator === '×' ? 'times' : problem.operator === '÷' ? 'divided by' : problem.operator} ${problem.operand2} equals what?`">{{ problem.operand1 }} {{ problem.operator }} {{ problem.operand2 }} = ?</div>
 
     <!-- Answer Input -->
     <div class="answer-container">
-      <input
-        ref="answerInput"
-        :value="modelValue"
-        @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
-        type="number"
-        inputmode="numeric"
-        class="answer-input"
-        :class="{ correct: isShowingFeedback && wasCorrect, wrong: isShowingFeedback && !wasCorrect }"
-        :disabled="isShowingFeedback"
-        placeholder="?"
-        aria-label="Your Answer"
-      />
+      <input ref="answerInput" :value="modelValue" @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)" type="number" inputmode="numeric" class="answer-input" :class="{ correct: isShowingFeedback && wasCorrect, wrong: isShowingFeedback && !wasCorrect }" :disabled="isShowingFeedback" placeholder="?" aria-label="Your Answer" />
     </div>
 
     <!-- Feedback Overlay -->
-    <FeedbackOverlay 
-      v-if="isShowingFeedback"
-      :was-correct="wasCorrect"
-      :correct-answer="problem.answer"
-      @continue="$emit('continue')"
-    />
+    <FeedbackOverlay v-if="isShowingFeedback" :was-correct="wasCorrect" :correct-answer="problem.answer" @continue="$emit('continue')" />
   </div>
 </template>
 
@@ -147,8 +129,13 @@ defineExpose({
 }
 
 @keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @media (max-width: 480px) {
@@ -159,7 +146,7 @@ defineExpose({
   .problem-animal {
     font-size: 3rem;
   }
-  
+
   .answer-input {
     font-size: 1.75rem;
   }

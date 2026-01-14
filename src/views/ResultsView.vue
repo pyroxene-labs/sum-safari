@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from "vue";
 import { useGameStore } from "@/composables/useGameStore";
-import {
-  useKeyboardShortcuts,
-} from "@/services/keyboardManager";
+import { useKeyboardShortcuts } from "@/services/keyboardManager";
 import ScoreSummaryCard from "@/components/results/ScoreSummaryCard.vue";
 import StatsGrid from "@/components/results/StatsGrid.vue";
 import AnimalsCollectionModal from "@/components/results/AnimalsCollectionModal.vue";
@@ -87,26 +85,11 @@ useKeyboardShortcuts([
 
     <ScoreSummaryCard v-if="summary" :summary="summary" />
 
-    <StatsGrid 
-      v-if="summary"
-      :accuracy="accuracy" 
-      :animals-collected="animalsCollected"
-      @view-collection="openAnimalsModal"
-    />
+    <StatsGrid v-if="summary" :accuracy="accuracy" :animals-collected="animalsCollected" @view-collection="openAnimalsModal" />
 
-    <AnimalsCollectionModal 
-      :show="showAnimalsModal"
-      :animals="animalsCollected"
-      @close="closeAnimalsModal"
-    />
+    <AnimalsCollectionModal :show="showAnimalsModal" :animals="animalsCollected" @close="closeAnimalsModal" />
 
-    <button 
-      class="new-game-btn" 
-      :class="{ disabled: !enterEnabled }"
-      :disabled="!enterEnabled"
-      @click="startNewGame"
-      :aria-label="!enterEnabled ? 'New Game, ready in ' + countdown + ' seconds' : 'Start New Safari Game'"
-    >
+    <button class="new-game-btn" :class="{ disabled: !enterEnabled }" :disabled="!enterEnabled" @click="startNewGame" :aria-label="!enterEnabled ? 'New Game, ready in ' + countdown + ' seconds' : 'Start New Safari Game'">
       <span class="btn-emoji" aria-hidden="true">🚀</span>
       <span class="btn-text">
         <span class="btn-main">New Safari!</span>
@@ -157,7 +140,7 @@ useKeyboardShortcuts([
   font-size: 1.25rem;
   font-weight: 700;
   color: white;
-  background: linear-gradient(135deg, #34D399 0%, #059669 100%);
+  background: linear-gradient(135deg, #34d399 0%, #059669 100%);
   border: 4px solid #059669;
   border-radius: 1.5rem;
   cursor: pointer;
@@ -207,8 +190,8 @@ useKeyboardShortcuts([
 
 /* Disabled state during countdown */
 .new-game-btn.disabled {
-  background: linear-gradient(135deg, #9CA3AF 0%, #6B7280 100%);
-  border-color: #6B7280;
+  background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
+  border-color: #6b7280;
   cursor: not-allowed;
   box-shadow: none;
   transform: none;
@@ -220,13 +203,23 @@ useKeyboardShortcuts([
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.9; }
-  50% { opacity: 0.5; }
+  0%,
+  100% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 @keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @media (max-width: 480px) {

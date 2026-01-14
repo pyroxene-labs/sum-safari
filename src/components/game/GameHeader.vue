@@ -12,6 +12,7 @@ defineProps<{
       <span class="score-emoji" aria-hidden="true">🏆</span>
       <span class="score-value">{{ score }}</span>
     </div>
+    <!-- prettier-ignore -->
     <div 
       class="score-item timer" 
       :class="{ warning: timeRemaining <= 30 }" 
@@ -57,7 +58,12 @@ defineProps<{
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 </style>
